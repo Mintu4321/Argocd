@@ -1,0 +1,47 @@
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: example-ingress
+#spec:
+#  rules:
+#    - host: test-live.local  # Same host for both services
+#      http:
+#        paths:
+#          - path: /test
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: my-service1  # Points to the httpd service (test-live1)
+#                port:
+#                  number: 80
+#          - path: /live
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: my-service  # Points to the nginx service (test-live)
+#                port:
+#                  number: 80
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: /test
+            backend:
+              service:
+                name:  my-service1
+                port:
+                  number: 8080
+          - pathType: Prefix
+            path: /live
+            backend:
+              service:
+                name:  my-service
+                port:
+                  number: 8080

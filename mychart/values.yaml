@@ -1,0 +1,51 @@
+replicaCount: 3
+
+currentValue: blue
+
+blueImage:
+  repository: nginx
+  tag: "latest"  # Blue version of nginx
+
+greenImage:
+  repository: httpd
+  tag: "latest"  # Green version of nginx
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+service:
+  type: LoadBalancer
+  port: 80
+
+resources: {}
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 81
+readinessProbe:
+  httpGet:
+    path: /readiness
+    port: 81
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+volumes: []
+volumeMounts: []
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

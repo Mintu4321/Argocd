@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: test-live
+  name: test-live
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-live
+  template:
+    metadata:
+      labels:
+        app: test-live
+    spec:
+      containers:
+      - image: 'kicbase/echo-server:1.0'
+        name: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: test-live
+  name: my-service
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: test-live
+#  type: ClusterIP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: test-live1
+  name: test-live1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-live1
+  template:
+    metadata:
+      labels:
+        app: test-live1
+    spec:
+      containers:
+      - image: 'kicbase/echo-server:1.0'
+        name: httpd
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: test-live1
+  name: my-service1
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: test-live
+#  type: ClusterIp

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+  labels:
+    app: my-app
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: "{{- if eq .Values.currentValue "blue" }}{{ .Values.blueImage.repository }}:{{ .Values.blueImage.tag }}{{ else }}{{ .Values.greenImage.repository }}:{{ .Values.greenImage.tag }}{{ end }}"
+        ports:
+        - containerPort: 80
