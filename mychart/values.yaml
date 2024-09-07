@@ -29,11 +29,11 @@ resources: {}
 livenessProbe:
   httpGet:
     path: /health
-    port: 80
+    port: 81
 readinessProbe:
   httpGet:
     path: /readiness
-    port: 80
+    port: 81
 
 autoscaling:
   enabled: false
