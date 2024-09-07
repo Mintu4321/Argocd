@@ -21,8 +21,8 @@ serviceAccount:
   name: ""
 
 service:
-  type: LoadBalancer
-  port: 80
+  type: NodePort
+  port: 81
 
 resources: {}
 

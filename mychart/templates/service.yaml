@@ -3,9 +3,9 @@ kind: Service
 metadata:
   name: my-app-service
 spec:
-  type: NodePort
+  type: {{.Values.service.type }}
   ports:
-    - port: 81
+    - port: {{.Values.service.port }}
       targetPort: 81
       nodePort: 30080
   selector:
