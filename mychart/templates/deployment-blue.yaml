@@ -23,7 +23,7 @@ spec:
       - name: my-app
         image: "{{- if eq .Values.currentValue "blue" }}{{ .Values.blueImage.repository }}:{{ .Values.blueImage.tag }}{{ else }}{{ .Values.greenImage.repository }}:{{ .Values.greenImage.tag }}{{ end }}"
         ports:
-        - containerPort: 80
+        - containerPort: 81
         livenessProbe:
           httpGet:
             path: /health
