@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-deployment
+  name: my-app-deployment-{{ .Values.currentValue }}
   labels:
     app: my-app
 spec:
-  replicas: 3
+  replicas: {{ .Values.replicaCount }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
+      maxUnavailable: 1
       maxSurge: 1
   selector:
     matchLabels:
@@ -24,3 +24,16 @@ spec:
         image: "{{- if eq .Values.currentValue "blue" }}{{ .Values.blueImage.repository }}:{{ .Values.blueImage.tag }}{{ else }}{{ .Values.greenImage.repository }}:{{ .Values.greenImage.tag }}{{ end }}"
         ports:
         - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 81
+          initialDelaySeconds: 10
+          periodSeconds: 5
+
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 81
+          initialDelaySeconds: 10
+          periodSeconds: 5
