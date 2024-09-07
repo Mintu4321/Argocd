@@ -1,6 +1,6 @@
 replicaCount: 2
 
-currentValue: blue
+currentValue: green
 
 blueImage:
   repository: 7002370412/tumlog
