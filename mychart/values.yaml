@@ -3,11 +3,11 @@ replicaCount: 2
 currentValue: blue
 
 blueImage:
-  repository: nginx
+  repository: 7002370412/tumlog
   tag: "latest"  # Blue version of nginx
 
 greenImage:
-  repository: httpd
+  repository: 7002370412/tumlog
   tag: "latest"  # Green version of nginx
 
 imagePullSecrets: []
@@ -29,11 +29,11 @@ resources: {}
 livenessProbe:
   httpGet:
     path: /health
-    port: 81
+    port: 80
 readinessProbe:
   httpGet:
     path: /readiness
-    port: 81
+    port: 80
 
 autoscaling:
   enabled: false
